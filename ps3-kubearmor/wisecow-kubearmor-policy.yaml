@@ -1,0 +1,23 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: wisecow-zero-trust-policy
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: wisecow
+  process:
+    matchPaths:
+      - path: /bin/fortune
+      - path: /usr/games/fortune
+      - path: /usr/games/cowsay
+      - path: /bin/bash
+      - path: /app/wisecow.sh
+  file:
+    matchDirectories:
+      - dir: /etc/
+        recursive: true
+      - dir: /app/
+        recursive: true
+  action: Audit
