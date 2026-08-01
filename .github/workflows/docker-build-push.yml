@@ -25,7 +25,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./ps1-wisecow
           push: true
           tags: ghcr.io/zree77/wisecow:latest
 
@@ -38,6 +38,7 @@ jobs:
 
       - name: Deploy to Kind cluster
         run: |
-          kubectl apply -f wisecow-deployment.yaml
-          kubectl apply -f wisecow-service.yaml
+          kubectl apply -f ps1-wisecow/wisecow-deployment.yaml
+          kubectl apply -f ps1-wisecow/wisecow-service.yaml
+          kubectl apply -f ps1-wisecow/wisecow-ingress.yaml
           kubectl rollout restart deployment/wisecow-deployment
