@@ -56,6 +56,9 @@ Two of the four listed objectives were implemented:
    ```bash
    python3 ps2-scripts/app_health_checker.py [optional_url]
    ```
+## PS3 — KubeArmor Zero-Trust Policy (bonus)
+
+A zero-trust `KubeArmorPolicy` was written and applied to the Wisecow pods, allowlisting only expected processes and file paths. KubeArmor was successfully installed on the local Kind cluster, but this environment (Kind on WSL2) lacks the Linux Security Module (AppArmor/BPF-LSM) support KubeArmor needs to generate visibility or enforcement events — confirmed by KubeArmor's own `enforcer=none` node label. See `ps3-kubearmor/NOTES.md` for the full writeup and evidence screenshot.
 
 ## Notes
 
