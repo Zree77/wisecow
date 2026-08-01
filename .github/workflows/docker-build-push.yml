@@ -28,3 +28,16 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/zree77/wisecow:latest
+
+deploy:
+    needs: build-and-push
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Kind cluster
+        run: |
+          kubectl apply -f wisecow-deployment.yaml
+          kubectl apply -f wisecow-service.yaml
+          kubectl rollout restart deployment/wisecow-deployment
